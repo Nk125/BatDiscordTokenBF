@@ -1,2 +1,2 @@
-# BatDTKGrabber
-Discord Token Grabber written in Batchfile, based on @OSintaxys Python Script.
+# BatDTKFind
+Discord Token BruteForce Finder written in Batchfile, based on @OSintaxys Python Script.
