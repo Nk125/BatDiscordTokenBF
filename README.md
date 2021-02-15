@@ -1,2 +1,2 @@
 # BatDTKGrabber
-Discord Token Grabber written in Batchfile, based on @Osintaxys Python Script.
+Discord Token Grabber written in Batchfile, based on @OSintaxys Python Script.
