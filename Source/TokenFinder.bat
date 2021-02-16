@@ -63,7 +63,7 @@ goto brute
 :: Funcion de ID Proporcionada
 :ID
 :: Elimina la variable token
-set /a limit=240000 * 241591
+set /a limit=2147483647 - 1
 set token=
 echo %ID%>id.txt
 REM Convertir texto plano a base 64
