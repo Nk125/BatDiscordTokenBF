@@ -63,7 +63,6 @@ goto brute
 :: Funcion de ID Proporcionada
 :ID
 :: Elimina la variable token
-set /a limit=2147483647 - 1
 set token=
 echo %ID%>id.txt
 REM Convertir texto plano a base 64
@@ -75,12 +74,6 @@ for /f %%g in ('type id.txt ^| findstr /I /V /C:"-----"') do (
 )
 del id.txt /f /s /q 1>nul 2>nul
 :funcmain
-set /a value+=1
-if %limit% GEQ %value% (
-    echo Limite alcanzado
-    pause
-    exit
-)
 set token=
 :: set = importa de id64 25 letras delante del inicio de linea
 set idf=%id64:~0,24%
