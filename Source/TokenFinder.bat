@@ -1,5 +1,4 @@
 @echo off
-chcp 65002
 cls
 :: Ingreso enabledelayedexpansion por el generador de lineas y enableextensions para evitar algun
 :: Inconveniente con if o set
